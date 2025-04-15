@@ -52,8 +52,8 @@ TwinGuard/
 <table>
   <tr>
     <td align="center">
-      <img src="figs/win6.png" alt="Window Accuracy" width="500"/><br>
-      <em>🔁 Adaptive Retraining Effectiveness: Adaptive retraining recovers accuracy and reduces unknowns (Window=6)</em>
+      <img src="figs/win6inte.png" alt="Window Accuracy" width="500"/><br>
+      <em>🔁 Adaptive Retraining Effectiveness to a new honeypot source: A surge in unknown sequences and an accuracy drop is observed upon integration, followed by recovery after retraining.</em>
     </td>
     <td align="center">
       <img src="figs/scatter_pearson_shadow.png" alt="Scatter Plot" width="500"/><br>
