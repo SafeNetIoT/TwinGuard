@@ -48,4 +48,30 @@ TwinGuard/
 └── README.md                    # Project documentation
 ```
 
+## Partial Results
+<table>
+  <tr>
+    <td align="center">
+      <img src="figs/win6.png" alt="Window Accuracy" width="500"/><br>
+      <em>🔁 Adaptive Retraining Effectiveness: Adaptive retraining recovers accuracy and reduces unknowns (Window=6)</em>
+    </td>
+    <td align="center">
+      <img src="figs/scatter_pearson_shadow.png" alt="Scatter Plot" width="500"/><br>
+      <em>📉 Accuracy Drop vs. Unknown Rate: Higher unknown rates correlate with larger accuracy drops</em>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="figs/uahist.png" alt="UA Fingerprints" width="500"/><br>
+      <em>🔎 User-Agent Behavioral Fingerprinting: Intrusion patterns vary across user-agent groups</em>
+    </td>
+    <td align="center">
+      <img src="figs/uatax.png" alt="UA Taxonomy" width="500"/><br>
+      <em>🧠 Intrusion Categories by User-Agent Group: Top attack techniques differ by client behavior and tooling</em>
+    </td>
+  </tr>
+</table>
+
+
+
 ## Acknowledgement
