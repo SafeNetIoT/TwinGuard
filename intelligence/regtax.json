@@ -1,0 +1,224 @@
+{
+    "Exploit Attempts": {
+      "File Inclusion (LFI/RFI)": {
+        "end_goal": "Code Execution",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "\\?file=.*",
+          "\\?path=.*",
+          "\\?url=https?://.*",
+          "wp_abspath=",
+          "\\.\\./",
+          "%2e%2e"
+        ]
+      },
+      "Misconfiguration Exploit": {
+        "end_goal": "Priv Esc / Info Leak",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "\\.env",
+          "\\.bak",
+          "/setup\\.php",
+          "xmlrpc\\.php",
+          "/\\.git/",
+          "/config(\\.php)?",
+          "/backup/",
+          "/readme\\.html",
+          "/changelog\\.txt"
+        ]
+      },
+      "REST/JSON Abuse": {
+        "end_goal": "Data Leak / Enumeration",
+        "match_fields": ["http_uri"],
+        "patterns": [
+          "/wp-json/",
+          "/api/",
+          "/wp-json/wp/v2/",
+          "/api/v[0-9]+/"
+        ]
+      },
+      "SQL Injection (SQLi)": {
+        "end_goal": "DB Access / Bypass",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "(?i)select.+from",
+          "(?i)union.+select",
+          "\\bor\\s+1=1\\b",
+          "--",
+          "%27",
+          "%3D",
+          "\\bselect\\b",
+          "\\binformation_schema\\b"
+        ]
+      },
+      "Command Injection": {
+        "end_goal": "Code Execution",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "cmd=",
+          "system\\(",
+          ";\\s*(wget|curl|bash)",
+          "&&",
+          "\\|\\|",
+          "python\\s+-c",
+          "bash\\s+-i",
+          "nc\\s+-e"
+        ]
+      },
+      "Denial of Service (DoS)": {
+        "end_goal": "Resource Exhaustion",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "xmlrpc\\.php",
+          "pingback\\.ping",
+          "/\\.well-known/",
+          "Content-Length: \\d{7,}",
+          "slowloris",
+          "\\.zip",
+          "/flood",
+          "keep-alive"
+        ]
+      }
+    },
+  
+    "Web Shell / Payload Upload": {
+      "Simple Shell Upload": {
+        "end_goal": "Persistent Access",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "\\.php",
+          "cmd=",
+          "system\\(",
+          "shell\\.php",
+          "r57\\.php",
+          "c99\\.php"
+        ]
+      },
+      "Obfuscated Shell Upload": {
+        "end_goal": "Stealth Backdoor",
+        "match_fields": ["http_body"],
+        "patterns": [
+          "eval\\(base64_decode\\(",
+          "base64_decode\\(",
+          "gz(inflate|uncompress)\\(",
+          "str_rot13\\(",
+          "hex2bin\\("
+        ]
+      },
+      "Two-Stage Payload": {
+        "end_goal": "Loader & Dropper",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+          "upload",
+          "/shell\\.php\\?cmd=",
+          "wget\\s+http",
+          "curl\\s+-o",
+          "chmod\\s+\\+x"
+        ]
+      }
+    },
+
+    "Post-Exploitation Activity": {
+    "Botnet C2 Callback": {
+        "end_goal": "Remote Control",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+        "/irc\\.php",
+        "/update",
+        "beacon",
+        "/gate\\.php",
+        "/bot/ping",
+        "/ping\\.php"
+        ]
+    },
+    "Cronjob Deployment": {
+        "end_goal": "Persistence",
+        "match_fields": ["http_body"],
+        "patterns": [
+        "@reboot",
+        "crontab",
+        "wget\\s+http",
+        "curl\\s+-o",
+        "chmod\\s+\\+x",
+        "bash\\s+.*&"
+        ]
+    },
+    "Spam Mailer Setup": {
+        "end_goal": "Email Abuse",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+        "mailer\\.php",
+        "sendmail",
+        "smtp_host",
+        "mail\\(",
+        "email=spam",
+        "bulkmail"
+        ]
+    },
+    "Proxy/Relay Deployment": {
+        "end_goal": "Lateral Movement",
+        "match_fields": ["http_uri", "http_body"],
+        "patterns": [
+        "proxy\\.php",
+        "forward=",
+        "relay",
+        "remote_host",
+        "remote_port"
+            ]
+        }
+    },
+    
+    "Delivery / Downloader": {
+        "Direct Script Drop": {
+          "end_goal": "Code Execution",
+          "match_fields": ["http_uri", "http_body"],
+          "patterns": [
+            "\\.sh",
+            "\\.exe",
+            "\\.php",
+            "wget\\s+https?://",
+            "curl\\s+https?://"
+          ]
+        },
+        "Drive-by Download / JS": {
+          "end_goal": "User Exploitation",
+          "match_fields": ["http_body"],
+          "patterns": [
+            "<iframe",
+            "eval\\(atob\\(",
+            "window\\.location",
+            "document\\.location",
+            "setTimeout\\(.*eval",
+            "base64,"
+          ]
+        }
+      },
+    
+      "Obfuscated / Anomalous Behavior": {
+        "Junk Payload Flood": {
+          "end_goal": "Resource Exhaustion",
+          "match_fields": ["http_body", "http_uri"],
+          "patterns": [
+            "POST\\s.+",
+            "garbled",
+            "payload.{0,10}spam",
+            "AAAAA+",
+            "[A-Z]{100,}",
+            "[0-9]{100,}"
+          ]
+        },
+        "Unknown Pattern": {
+          "end_goal": "Undiscovered Variant",
+          "match_fields": ["http_body", "http_uri"],
+          "patterns": [
+            "[a-zA-Z0-9+/=]{200,}",
+            "[a-f0-9]{32,}",
+            "entropy",
+            "anomaly",
+            "randomized",
+            "X-Obfuscated",
+            "X-Custom"
+          ]
+        }
+      }
+}
