@@ -1,5 +1,4 @@
 # User-Agent Based Fingerprinting per Attack Category
-
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -11,7 +10,7 @@ import itertools
 
 
 # Load the processed dataset
-file_path = "../data/encoded/http_2025-03-15_to_2025-04-09_encoded.csv"
+file_path = "../data/raw/http_2025-03-15_to_2025-04-09.csv"
 df = pd.read_csv(file_path)
 
 # Map category integer to label
@@ -114,7 +113,6 @@ plt.savefig("fig/ua_fingerprint_heatmap_by_category.png")
 Histogram Visualization
 ===============================================================================
 '''
-'''
 # Prepare plot
 categories = ['attempt', 'intrusion-control', 'scan']
 fig, axes = plt.subplots(len(categories), len(ua_categories), figsize=(38, 18), sharex=False, sharey=False)
@@ -150,26 +148,35 @@ for i, category in enumerate(categories):
         else:
             ax.axis('off')
 
-        # Add legend
-        ax.legend(fontsize=18)
+        if i == 0 and j == 0:
+            handles, labels = ax.get_legend_handles_labels()
 
-        # ax.set_title(f"{category} - {ua}", fontsize=10)
+
         ax.set_xticks([])
         ax.set_yticks([])
 
 # Label y-axis with category names
 for i, category in enumerate(categories):
-    axes[i, 0].set_ylabel(category, fontsize=28, rotation=90)
+    axes[i, 0].set_ylabel(category, fontsize=40, rotation=90)
 
 # Label top x-axis with UA group names
 for j, ua in enumerate(ua_categories):
-    axes[0, j].set_title(ua, fontsize=28)
+    axes[0, j].set_title(ua, fontsize=40)
 
 
-plt.suptitle("User-Agent Fingerprint Distributions by Category", fontsize=34, y=0.99)
-plt.tight_layout()
-plt.savefig("fig/ua_fingerprint_histogram_kde_combined_features.png", dpi=300)
-'''
+plt.suptitle("User-Agent Fingerprint Distributions by Category", fontsize=46, y=0.99)
+plt.tight_layout(rect=[0, 0, 0.98, 0.97])
+
+fig.legend(
+    handles, labels,
+    loc='upper right',
+    bbox_to_anchor=(0.985, 1.015),
+    fontsize=30,
+    frameon=False
+)
+
+plt.savefig("../figs/uahist.png", dpi=300)
+print("User-Agent fingerprint processing complete.")
 
 '''
 ===============================================================================
@@ -244,4 +251,4 @@ plt.xticks(fontsize=22)
 plt.yticks(fontsize=22)
 plt.legend(title="Category and Thresholds", fontsize=20, title_fontsize=22, loc = 'upper right')
 plt.tight_layout()
-plt.savefig("fig/js_divergence_all_categories.png", dpi=300)
+plt.savefig("../figs/uajs.png", dpi=300)

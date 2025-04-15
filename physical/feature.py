@@ -14,8 +14,8 @@ import json
 # === Config ===
 INPUT_FOLDER = "../data/daily"
 OUTPUT_FOLDER = "../data/encoded"
-START_DATE = "2025-03-20"
-END_DATE = "2025-03-24"
+START_DATE = "2025-03-15"
+END_DATE = "2025-04-09"
 
 # === Tokenizer ===
 def tokenize(text):

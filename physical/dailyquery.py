@@ -7,7 +7,7 @@ from requests.auth import HTTPBasicAuth
 # === Config ===
 USERNAME = "NAME"   # Replace with your username
 PASSWORD = "PASSWORD"     # Replace with your password
-OPENSEARCH_HOST = "https://os.gcaaide.org"
+OPENSEARCH_HOST = "https://xxx.org" # Replace with your OpenSearch host
 INDEX_PATTERN = "proxypot-2"
 HEADERS = {"Content-Type": "application/json"}
 

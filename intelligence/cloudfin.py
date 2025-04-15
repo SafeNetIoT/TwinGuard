@@ -10,26 +10,12 @@ from scipy.spatial.distance import jensenshannon
 import itertools
 
 # Load the processed dataset
-file_path = "../data/encoded/http_2025-03-15_to_2025-04-09_encoded.csv"
+file_path = "../data/raw/http_2025-03-15_to_2025-04-09.csv"
 df = pd.read_csv(file_path)
 
 # Map category integer to label
 label_map = {0: 'attempt', 1: 'intrusion-control', 2: 'scan'}
 df["category_label"] = df["category"].map(label_map)
-
-'''
-# Map host_as_org_encoded to known cloud orgs
-org_label_map = {
-    0: "AMAZON-02",
-    1: "AMAZON-AES",
-    2: "GOOGLE",
-    3: "DIGITALOCEAN-ASN"
-}
-df["cloud_org"] = df["host_as_org_encoded"].map(org_label_map)
-
-# Define the target cloud org categories
-cloud_org_categories = ["AMAZON-02", "AMAZON-AES", "GOOGLE", "DIGITALOCEAN-ASN"]
-'''
 
 # Map host_as_org_encoded to anonymized cloud orgs
 org_label_map = {
@@ -143,8 +129,8 @@ fig.legend(
     frameon=False
 )
 
-plt.savefig("fig/cloudfin.png", dpi = 300)
-print("User-Agent fingerprint processing complete.")
+plt.savefig("../figs/cloudfin.png", dpi = 300)
+print("Cloud fingerprint processing complete.")
 
 
 '''
@@ -218,4 +204,4 @@ plt.xticks(fontsize=18)
 plt.yticks(fontsize=18)
 plt.legend(title="Category and Thresholds", loc='upper right', fontsize=20, title_fontsize=20)
 plt.tight_layout()
-plt.savefig("fig/js_divergence_all_categories_cloud.png", dpi = 300)
+plt.savefig("../figs/cloudjs.png", dpi = 300)
