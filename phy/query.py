@@ -7,12 +7,12 @@ import csv
 
 # === Config ===
 USERNAME = "aide-ucl"   # Replace with your username
-PASSWORD = "63Ed1068a7aa4ab248!"     # Replace with your password
-OPENSEARCH_HOST = "https://os.gcaaide.org" # Replace with your OpenSearch host
-INDEX_PATTERN = "proxypot-2"
+PASSWORD = "xxx"     # Replace with your password
+OPENSEARCH_HOST = "xxx" # Replace with your OpenSearch host
+INDEX_PATTERN = "xxx"
 HEADERS = {"Content-Type": "application/json"}
 
-START_DATE = "2025-04-10"
+START_DATE = "2025-03-15"
 END_DATE = "2025-07-15"
 
 # === Daily date iterator ===
