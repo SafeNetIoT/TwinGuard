@@ -4,8 +4,8 @@ LIVID is a lightweight, adaptive intrusion detection and behavioral profiling fr
 ### Conda Environment
 To reproduce the exact environment used in this project, use the conda environment:
 ```
-conda env create -f environment.yml
-conda activate twinguard
+conda livid create -f environment.yml
+conda activate livid
 ```
 
 ## Key Features
